@@ -25,10 +25,10 @@ def rho_water97(t):
     sg = IAPWS97(T=t + 273.15, P=0.101325).rho / 1000.0
     return sg
 
-def rho_milk(xsnf, xbf, xwater, t):
+def rho_milk(xsnf, xbf, t):
     
-    if xwater == None:
-        xwater = 1.0 - xsnf - xbf
+
+    xwater = 1.0 - xsnf - xbf
     
     xsnf, xbf, xwater = (xsnf*100.0, xbf*100.0, xwater*100.0)
     
@@ -36,12 +36,13 @@ def rho_milk(xsnf, xbf, xwater, t):
     bf = rho_bf(t)
     water = rho_water95(t)
     
-    sg = 100.0 / ( xsnf/snf + xbf/bf + xwater/water )
+    rho = 100.0 / ( xsnf/snf + xbf/bf + xwater/water )
     
-    return sg
+    return rho
     
 for t in range(4, 40, 1):
-    print(t, rho_snf(t), rho_bf(t), rho_water95(t), rho_milk(0.0895, 0.04, None, t))
+    print(t, rho_snf(t), rho_bf(t), rho_water95(t), 
+          rho_milk(0.0895, 0.04, t))
     
     
 
