@@ -16,12 +16,10 @@ def rho_snf(t):
     return sg
     
 def rho_water95(t):
-    # sg = 1.0020825 - 0.000114*t - 0.000003325 * t**2
     sg = IAPWS95(T=t + 273.15, P=0.101325).rho / 1000.0
     return sg
 
 def rho_water97(t):
-    # sg = 1.0020825 - 0.000114*t - 0.000003325 * t**2
     sg = IAPWS97(T=t + 273.15, P=0.101325).rho / 1000.0
     return sg
 
@@ -40,11 +38,19 @@ def rho_milk(xsnf, xbf, t):
     
     return rho
     
-for t in range(4, 40, 1):
-    print(t, rho_snf(t), rho_bf(t), rho_water95(t), 
-          rho_milk(0.0895, 0.04, t))
+t = 4
+bf = 0.055
+snf = 0.150 - bf
+
+print(t, rho_milk(snf, bf, t))
     
+t = 4.4444444444
+bf = 0.03928
+snf = 0.39221
+
+print(t, rho_milk(snf, bf, t), rho_milk(snf, bf, t)*8.34)
     
+print(rho_bf(4.4444444))  
 
 
 
